@@ -1,0 +1,2 @@
+[groupPlayers, "taskArmUp", ["Rearm, make sure to take some explosives with you.", "Rearm", "Armoury"], armouryBox, "ASSIGNED", 1, true, "rearm"] call BIS_fnc_taskCreate;
+[groupPlayers, "taskBoardHeli", ["Board the chopper", "Board Chopper", "Heli"], heli1, "CREATED", 1, true, "getin"] call BIS_fnc_taskCreate;

@@ -1,0 +1,226 @@
+author="Valax";
+onLoadName="Jungle Ops";
+overviewText="Carry out procedurally generated operations in the jungle of Vietnam.";
+respawnOnStart = -1;
+
+class Params
+{
+	class RespawnOn
+	{
+		title = "Respawn On";
+		texts[] = {"On", "Off"};
+		values[] = {1, 0};
+		default = 1;
+		isGlobal = 1;
+	};
+	class RespawnTickets
+	{
+		title = "Respawn Tickets";
+		texts[] = {"5", "10", "20", "50", "100"};
+		values[] = {5, 10, 20, 50, 100};
+		default = 10;
+		isGlobal = 1;
+	};
+	class Daytime
+	{
+		title = "Time";
+		texts[] = {"Morning", "Day", "Evening", "Midnight", "Random"};
+		values[] = {6, 12, 18, 0, random 24};
+		default = 12;
+		function = "BIS_fnc_paramDaytime";
+ 		isGlobal = 1;
+	};
+	class EnvOvercast
+	{
+		title = "Clouds";
+		texts[] = {"Clear", "Light", "Thick", "Stormy", "Random"};
+		values[] = {0, 0.35, 0.6, 0.9, random 1};
+		default = 0.35;
+		function = "BIS_fnc_paramWeather";
+		isGlobal = 1;
+	};
+	class EnvRain
+	{
+		title = "Rain";
+		texts[] = {"Clear", "Drizzling", "Raining", "Showers", "Random"};
+		values[] = {0, 0.3, 0.5, 0.9, random 1};
+		default = 0.15;
+		isGlobal = 1;
+	};
+	class EnvLightning
+	{
+		title = "Lightning";
+		texts[] = {"None", "Slight", "Stormy", "Very Stormy", "Apocalypse", "Random"};
+		values[] = {0, 0.2, 0.5, 0.8, 1, random 1};
+		default = 0.15;
+		isGlobal = 1;
+	};
+	class EnvFog
+	{
+		title = "Fog";
+		texts[] = {"Clear", "Misty", "Foggy", "Thick", "Random"};
+		values[] = {0, 0.15, 0.25, 0.6, random 0.7};
+		default = 0.15;
+		isGlobal = 1;
+	};
+	class AccurateObjectiveMarkers
+	{
+		title = "Accurate Objective Markers";
+		texts[] = {"Off", "On"};
+		values[] = {0, 1};
+		default = 0;
+		isGlobal = 1;
+	};
+	class Stamina
+	{
+		title = "Stamina";
+		texts[] = {"Off", "On"};
+		values[] = {0, 1};
+		function = "VN_ms_fnc_params_stamina";
+		default = 1;
+		isGlobal = 1;
+	};
+	class EnemySquads
+	{
+		title = "Enemy Squads in AO";
+		texts[] = {"3", "6", "9", "12", "15", "20", "30"};
+		values[] = {3, 6,9,12,15,20,30};
+		default = 6;
+		isGlobal = 1;
+	};
+	class CDLCRevive
+	{
+		title = "CDLC Revive System On";
+		texts[] = {"On", "Off"};
+		values[] = {1, 0};
+		default = 1;
+		isGlobal = 1;
+	};
+};
+
+class CfgDebriefing
+{  
+	class End1
+	{
+		title = "Mission Completed";
+		subtitle = "";
+		description = "The cache was sucessfully located and destroyed.";
+		pictureBackground = "";
+		picture = "b_inf";
+		pictureColor[] = { 0.0, 0.3, 0.6, 1 };
+	};
+};
+
+class CfgRemoteExec
+{
+	class Functions
+	{
+		mode = 1;
+		jip = 1;
+
+		class BIS_fnc_addScriptedEventHandler
+		{
+			allowedTargets=0;
+			jip=1;
+		};
+		class BIS_fnc_setTaskLocal
+		{
+			allowedTargets=0;
+			jip=1;
+		};
+		class BIS_fnc_initIntelObject
+		{
+			allowedTargets=0;
+			jip=1;
+		};
+		class BIS_fnc_debugConsoleExec
+		{
+			allowedTargets=0;
+			jip=0;
+		};
+		class fnc_smoothPlayMusic
+		{
+			allowedTargets=0;
+			jip=0;
+		};
+	};
+};
+
+class vn_artillery_settings
+{
+	// Add your NUMBER variable that will be used as a cost variable - leave empty if you don't want the cost to matter.
+	cost_variable = "";
+	// Array - { Always available, `radio_backpacks`, `radio_vehicles`, `player_types`, "vn_artillery" unit trait}
+	// Make the first true for the radio to be always avaliable
+	availability[] = {0, 1, 0, 1, 0};
+	// Distance from the edge of a blacklisted marker that a artillery/aircraft cannot be called in.
+	danger_distance = 150;
+	// 0 - No unit trait is required, 1 - The unit will require the "vn_artillery" unit trait for the action to be avaliable
+	unit_trait_required = 0;
+	radio_backpacks[] = {"vn_b_pack_03_xm177_pl"};
+	radio_vehicles[] = {"vn_b_boat_05_01", "vn_b_wheeled_m54_03", "vn_b_wheeled_m151_01", "vn_b_wheeled_m54_02", "vn_b_wheeled_m54_01", "vn_b_wheeled_m54_mg_02", "vn_i_air_ch34_02_01", "vn_i_air_ch34_01_02", "vn_i_air_ch34_02_02"};
+	player_types[] = {"vn_b_men_sog_04", "vn_b_men_sog_05"};
+	// Planes
+	class aircraft
+	{
+		class he
+		{
+			displayname = $STR_VN_ARTILLERY_AIRCRAFT_HE_HE_NAME;
+			class rambler
+			{
+				displayname = $STR_VN_ARTILLERY_AIRCRAFT_CLUSTER_RAMBLER_NAME;
+				icon = "vn\ui_f_vietnam\data\decals\vn_callsign_src_433tfs_ca.paa";
+				description = $STR_VN_ARTILLERY_AIRCRAFT_HE_VESPA_DESCRIPTION;
+				magazines[] = {"vn_bomb_500_mk82_he_mag_x1","vn_bomb_500_mk82_he_mag_x1"};
+				vehicleclass = "vn_b_air_f4c_cas";
+				cooldown = (60*50);
+				cost = 10;
+			};
+			class dragon
+			{
+				displayname = $STR_VN_ARTILLERY_AIRCRAFT_HE_DRAGON_NAME;
+				icon = "vn\ui_f_vietnam\data\decals\vn_callsign_src_a477_ca.paa";
+				description = $STR_VN_ARTILLERY_AIRCRAFT_HE_DRAGON_DESCRIPTION;
+				magazines[] = {"vn_rocket_ffar_m229_he_x19", "vn_rocket_ffar_m229_he_x19"};
+				vehicleclass = "vn_b_air_uh1c_01_02";
+				cooldown = (50*60);
+				cost = 16;
+			};
+		};
+		class illumination
+		{
+			displayname = $STR_VN_ARTILLERY_AIRCRAFT_ILLUMINATION_ILLUMINATION_NAME;
+			class dawn_1
+			{
+				displayname = $STR_VN_ARTILLERY_ARTILLERY_ILLUMINATION_DAWN_1_NAME;
+				icon = "vn\ui_f_vietnam\data\decals\vn_callsign_src_usarmy_ca.paa";
+				description = $STR_VN_ARTILLERY_ARTILLERY_ILLUMINATION_DAWN_1_DESCRIPTION;
+				condition = "daytime >= 18 || daytime <= 6";
+				function = "vn_fnc_artillery_dawn_1";
+				allow_double = 0;
+				cooldown = (60*50);
+				illumination = 1;
+				cost = 0;
+			};
+		};
+	};
+	class artillery
+	{
+		class he
+		{
+			displayname = $STR_VN_ARTILLERY_ARTILLERY_HE_HE_NAME;
+			class baker_3
+			{
+				displayname = $STR_VN_ARTILLERY_ARTILLERY_HE_BAKER_3_NAME;
+				icon = "vn\ui_f_vietnam\data\decals\vn_callsign_src_l176_ca.paa";
+				description = $STR_VN_ARTILLERY_ARTILLERY_HE_BAKER_3_DESCRIPTION;
+				ammo[] = {"vn_shell_105mm_m1_he_ammo","vn_shell_105mm_m1_he_ammo","vn_shell_105mm_m1_he_ammo","vn_shell_105mm_m1_he_ammo"};
+				allow_double = 1;
+				cooldown = (60*5);
+				divergence = 50;
+				count = 1;
+				cost = 16;
+			};
+		};
+	};
+};
